@@ -59,8 +59,19 @@ async function run() {
         })
 
 
-
-
+        // allPetsCollection
+        app.post('/allPets', async (req, res) => {
+            const body = req.body;
+            const date = new Date()
+            body.addedTime = date
+            console.log(body, date,);
+            const result = await allPetsCollection.insertOne(body)
+            res.send(result)
+        })
+        app.get('/allPets', async (req, res) => {
+            const result = await allPetsCollection.find({ }).sort({ addedTime: 1 }).toArray()
+            res.send(result)
+        })
 
 
 
